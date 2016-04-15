@@ -21,14 +21,22 @@ describe("WatchDetection", function() {
 			var file2Path = path.join(fixturePath, "file2.js");
 			var loaderPath = path.join(__dirname, "fixtures", "delay-loader.js");
 			before(function() {
-				try { fs.mkdirSync(fixturePath); } catch(e) {}
+				try {
+					fs.mkdirSync(fixturePath);
+				} catch(e) {}
 				fs.writeFileSync(filePath, "require('./file2')", "utf-8");
 				fs.writeFileSync(file2Path, "original", "utf-8");
 			});
 			after(function() {
-				try { fs.unlinkSync(filePath); } catch(e) {}
-				try { fs.unlinkSync(file2Path); } catch(e) {}
-				try { fs.rmdirSync(fixturePath); } catch(e) {}
+				try {
+					fs.unlinkSync(filePath);
+				} catch(e) {}
+				try {
+					fs.unlinkSync(file2Path);
+				} catch(e) {}
+				try {
+					fs.rmdirSync(fixturePath);
+				} catch(e) {}
 			});
 			it("should build the bundle correctly", function(done) {
 				var compiler = webpack({
@@ -56,8 +64,7 @@ describe("WatchDetection", function() {
 
 					watcher = compiler.watch({
 						aggregateTimeout: 50
-					}, function() {
-					});
+					}, function() {});
 				}
 
 				function step2() {

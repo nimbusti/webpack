@@ -42,7 +42,6 @@ describe("Compiler (caching)", function() {
 			compilation.bail = true;
 		});
 
-
 		var compilerIteration = 1;
 
 		function runCompiler(callback) {
@@ -73,7 +72,7 @@ describe("Compiler (caching)", function() {
 
 		c.plugin("after-compile", function(stats, callback) {
 
-			if (postCompileCallbackStack.length > 0) {
+			if(postCompileCallbackStack.length > 0) {
 				postCompileCallbackStack.shift().apply(this, arguments);
 			}
 
@@ -101,7 +100,7 @@ describe("Compiler (caching)", function() {
 				fs.rmdirSync(tempFixturePath);
 			}
 		} catch(e) {
-			if (e.code !== 'ENOENT') {
+			if(e.code !== 'ENOENT') {
 				throw e;
 			}
 		}
@@ -117,7 +116,7 @@ describe("Compiler (caching)", function() {
 				fs.rmdirSync(tempFixturePath);
 			}
 		} catch(e) {
-			if (e.code !== 'ENOENT') {
+			if(e.code !== 'ENOENT') {
 				throw e;
 			}
 		}
@@ -128,7 +127,7 @@ describe("Compiler (caching)", function() {
 		fs.createReadStream(path.join(__dirname, "fixtures", 'c.js')).pipe(fs.createWriteStream(cFilepath));
 
 		return {
-			rootPath:  tempFixturePath,
+			rootPath: tempFixturePath,
 			aFilepath: aFilepath,
 			cFilepath: cFilepath
 		};
@@ -156,14 +155,11 @@ describe("Compiler (caching)", function() {
 				setTimeout(function() {
 					fs.writeFileSync(tempFixture.aFilepath, aContent);
 
-
 					helper.runAgain(function(stats, files, iteration) {
 
 						// Cached the third run
 						stats.assets[0].name.should.be.exactly('bundle.js');
 						stats.assets[0].emitted.should.be.exactly(true);
-
-
 
 						done();
 					});
@@ -197,7 +193,6 @@ describe("Compiler (caching)", function() {
 				setTimeout(function() {
 					fs.writeFileSync(tempFixture.aFilepath, aContent);
 
-
 					helper.runAgain(function(stats, files, iteration) {
 
 						// Cached the third run
@@ -205,7 +200,6 @@ describe("Compiler (caching)", function() {
 						stats.assets[0].emitted.should.be.exactly(true);
 
 						files['bundle.js'].should.containEql('"This is a MODIFIED"');
-
 
 						done();
 					});
@@ -241,7 +235,6 @@ describe("Compiler (caching)", function() {
 
 				fs.writeFileSync(tempFixture.aFilepath, aContent);
 
-
 				helper.runAgain(function(stats, files, iteration) {
 
 					// And only a.js built after it was modified
@@ -256,8 +249,6 @@ describe("Compiler (caching)", function() {
 			});
 		});
 	});
-
-
 
 	it("should only build when modified (even with no timeout)", function(done) {
 
