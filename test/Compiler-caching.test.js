@@ -8,7 +8,7 @@ var WebpackOptionsApply = require("../lib/WebpackOptionsApply");
 var WebpackOptionsDefaulter = require("../lib/WebpackOptionsDefaulter");
 
 describe("Compiler (caching)", function() {
-	this.timeout(5000000);
+	this.timeout(10000);
 
 	function compile(entry, options, callback) {
 		new WebpackOptionsDefaulter().process(options);
