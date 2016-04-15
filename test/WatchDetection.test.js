@@ -58,7 +58,7 @@ describe("WatchDetection", function() {
 
 				function step1() {
 					onChange = function() {
-						if(memfs.readFileSync("/bundle.js").indexOf("original") >= 0)
+						if(memfs.readFileSync("/bundle.js") && memfs.readFileSync("/bundle.js").indexOf("original") >= 0)
 							step2();
 					}
 
